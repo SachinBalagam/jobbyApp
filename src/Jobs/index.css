@@ -4,7 +4,9 @@
 }
 .filter-and-jobs-container {
   display: flex;
+  flex-direction: column;
 }
+
 .profile-and-filter-container {
   padding: 20px;
   min-width: 20vw;
@@ -26,13 +28,17 @@
   font-size: 16px;
 }
 .jobs-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   color: #ffffff;
   list-style-type: none;
 }
 .search-container {
   padding: 10px;
-  margin-top: 20px;
-  margin-left: 20px;
+  padding-right: 0;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,12 +61,23 @@
   height: 38px;
   border: 0;
   cursor: pointer;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 .search-icon {
   color: #ffffff;
 }
 .failureView-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   width: 60vw;
+}
+.failure-image {
+  margin-top: 20px;
+  width: 400px;
 }
 .loader-container {
   display: flex;
@@ -82,4 +99,14 @@
 .jobsList-container {
   list-style-type: none;
   padding-left: 0;
+}
+.no-job-image {
+  width: 300px;
+  margin-top: 20px;
+}
+@media Screen and (min-width: 768px) {
+  .filter-and-jobs-container {
+    display: flex;
+    flex-direction: row;
+  }
 }

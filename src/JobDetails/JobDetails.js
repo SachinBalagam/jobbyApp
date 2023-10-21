@@ -155,8 +155,12 @@ class JobDetails extends Component {
             <ul className="skills-container">
               {skills.map(eachSkill => (
                 <li key={eachSkill.name} className="each-skill">
-                  <img src={eachSkill.imageUrl} alt={eachSkill.name} />
-                  <p>{eachSkill.name}</p>
+                  <img
+                    src={eachSkill.imageUrl}
+                    alt={eachSkill.name}
+                    className="skillImage"
+                  />
+                  <p className="skillName">{eachSkill.name}</p>
                 </li>
               ))}
             </ul>

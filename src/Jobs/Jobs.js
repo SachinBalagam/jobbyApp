@@ -45,7 +45,14 @@ const salaryRangesList = [
   },
 ]
 
-const apiStatusConstants = {
+const profileApiStatusConstants = {
+  initial: 'INITIAL',
+  success: 'SUCCESS',
+  failure: 'FAILURE',
+  inProgress: 'IN_PROGRESS',
+}
+
+const jobsApiStatusConstants = {
   initial: 'INITIAL',
   success: 'SUCCESS',
   failure: 'FAILURE',
@@ -59,7 +66,8 @@ class Jobs extends Component {
     searchInput: '',
     ActiveSalaryRange: '',
     employeeTypeList: [],
-    apiStatus: apiStatusConstants.initial,
+    profileApiStatus: profileApiStatusConstants.initial,
+    jobsApiStatus: jobsApiStatusConstants.initial,
   }
 
   componentDidMount() {
@@ -68,7 +76,7 @@ class Jobs extends Component {
   }
 
   getJobsDetails = async () => {
-    this.setState({apiStatus: apiStatusConstants.inProgress})
+    this.setState({jobsApiStatus: jobsApiStatusConstants.inProgress})
     const {searchInput, ActiveSalaryRange, employeeTypeList} = this.state
     const employmentString = employeeTypeList.join()
     console.log(employeeTypeList)
@@ -96,15 +104,15 @@ class Jobs extends Component {
       }))
       this.setState({
         jobDetails: updatedData,
-        apiStatus: apiStatusConstants.success,
+        jobsApiStatus: jobsApiStatusConstants.success,
       })
     } else {
-      this.setState({apiStatus: apiStatusConstants.failure})
+      this.setState({jobsApiStatus: jobsApiStatusConstants.failure})
     }
   }
 
   getProfile = async () => {
-    this.setState({apiStatus: apiStatusConstants.inProgress})
+    this.setState({profileApiStatus: profileApiStatusConstants.inProgress})
     const jwtToken = Cookies.get('jwt_token')
     const apiUrl = 'https://apis.ccbp.in/profile'
     const options = {
@@ -123,10 +131,10 @@ class Jobs extends Component {
       }
       this.setState({
         profileDetails: UpdatedData,
-        apiStatus: apiStatusConstants.success,
+        profileApiStatus: profileApiStatusConstants.success,
       })
     } else {
-      this.setState({apiStatus: apiStatusConstants.failure})
+      this.setState({profileApiStatus: profileApiStatusConstants.failure})
     }
   }
 
@@ -194,7 +202,7 @@ class Jobs extends Component {
 
   renderProfileFailureView = () => (
     <div className="profileButton-Container">
-      <button type="button" onClick={this.getProfile()} className="button">
+      <button type="button" onClick={this.getProfile} className="button">
         Retry
       </button>
     </div>
@@ -222,6 +230,7 @@ class Jobs extends Component {
         <img
           src="https://assets.ccbp.in/frontend/react-js/no-jobs-img.png"
           alt="no jobs"
+          className="no-job-image"
         />
         <h1>No Jobs Found</h1>
         <p>We could not find any jobs. Try other filters</p>
@@ -234,23 +243,24 @@ class Jobs extends Component {
       <img
         src="https://assets.ccbp.in/frontend/react-js/failure-img.png "
         alt="failure view"
+        className="failure-image"
       />
       <h1>Oops! Something Went Wrong</h1>
       <p>We cannot seem to find the page you are looking for</p>
-      <button type="button" onClick={this.getJobsDetails()} className="button">
+      <button type="button" onClick={this.getJobsDetails} className="button">
         Retry
       </button>
     </div>
   )
 
   renderJobView = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
-      case apiStatusConstants.success:
+    const {jobsApiStatus} = this.state
+    switch (jobsApiStatus) {
+      case jobsApiStatusConstants.success:
         return this.renderJobDetailsView()
-      case apiStatusConstants.inProgress:
+      case jobsApiStatusConstants.inProgress:
         return this.renderLoadingView()
-      case apiStatusConstants.failure:
+      case jobsApiStatusConstants.failure:
         return this.renderJobDetailsFailureView()
       default:
         return null
@@ -258,13 +268,13 @@ class Jobs extends Component {
   }
 
   renderProfileView = () => {
-    const {apiStatus} = this.state
-    switch (apiStatus) {
-      case apiStatusConstants.success:
+    const {profileApiStatus} = this.state
+    switch (profileApiStatus) {
+      case profileApiStatusConstants.success:
         return this.renderProfileDetails()
-      case apiStatusConstants.inProgress:
+      case profileApiStatusConstants.inProgress:
         return this.renderLoadingView()
-      case apiStatusConstants.failure:
+      case profileApiStatusConstants.failure:
         return this.renderProfileFailureView()
       default:
         return null

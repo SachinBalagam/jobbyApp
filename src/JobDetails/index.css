@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-left: 0;
+  margin-right: 0;
 }
 .jobDetails-card {
   background-color: #202020;
@@ -97,17 +99,26 @@
 }
 .lifeAtCompany-card {
   display: flex;
+  flex-direction: column;
 }
 .skills-container {
   list-style-type: none;
   padding-left: 0;
   flex-wrap: wrap;
   display: flex;
+  justify-content: space-between;
 }
 .each-skill {
   display: flex;
-  width: 250px;
+  align-items: center;
+  width: 300px;
   margin: 20px;
+}
+.skillImage {
+  width: 50px;
+}
+.skillName {
+  margin-left: 10px;
 }
 .company-inside-image {
   margin-left: 20px;
@@ -120,6 +131,7 @@
   list-style-type: none;
   padding-left: 0;
   display: flex;
+  flex-direction: column;
 }
 .eachJob-card {
   color: #ffffff;
@@ -136,4 +148,16 @@
   min-height: 60vh;
   color: #ffffff;
   font-family: 'Roboto';
+}
+@media Screen and (min-width: 768px) {
+  .lifeAtCompany-card {
+    flex-direction: row;
+  }
+  .similar-job-container {
+    flex-direction: row;
+  }
+  .background-container {
+    margin-left: 150px;
+    margin-right: 150px;
+  }
 }
